@@ -4,24 +4,26 @@ import android.R.layout.simple_list_item_1
 import android.content.ContentValues
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.ArrayAdapter
-import android.widget.ListView
-import android.widget.SearchView
-import android.widget.Toast
+import android.widget.*
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.activity_main.view.button
 
 class MainActivity : AppCompatActivity() {
 
+    companion object{
+        lateinit var dbhelper: Dbhelper
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        var search= findViewById<SearchView>(R.id.searchView)
-        var listview:ListView = findViewById<ListView>(R.id.listview)
+        var search = findViewById<SearchView>(R.id.searchView)
+        var listview: ListView = findViewById<ListView>(R.id.listview)
 
-        val shoplist= ArrayList<String>()
+        val shoplist = ArrayList<String>()
         shoplist.add(" Rice Sona Massori")
         shoplist.add(" Sugar")
         shoplist.add(" Salt")
@@ -47,17 +49,19 @@ class MainActivity : AppCompatActivity() {
         shoplist.add(" Kurkure")
         shoplist.add(" Mixtures")
 
-        val arrayAdapter : ArrayAdapter<String> = ArrayAdapter(this, simple_list_item_1 , shoplist)
-        listview.adapter= arrayAdapter
-        search.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+        val arrayAdapter: ArrayAdapter<String> = ArrayAdapter(this, simple_list_item_1, shoplist)
+        listview.adapter = arrayAdapter
+        search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 search.clearFocus()
-                if (shoplist.contains(query))
-                {
+                if (shoplist.contains(query)) {
                     arrayAdapter.filter.filter(query)
-                }
-                else{
-                    Toast.makeText(applicationContext,"Item is not on database, add explicitly", Toast.LENGTH_LONG).show()
+                } else {
+                    Toast.makeText(
+                        applicationContext,
+                        "Item is not on database, add explicitly",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
                 return false
             }
@@ -68,16 +72,16 @@ class MainActivity : AppCompatActivity() {
             }
 
         })
-        var helper = Dbhelper(applicationContext)
-        var db= helper.readableDatabase
-        var rq = db.rawQuery("SELECT * FROM ITEM", null)
-        if(rq.moveToNext())
-            Toast.makeText(applicationContext,rq.getString(1) ,Toast.LENGTH_LONG).show()
-        /*button.setOnClickListener {
-            var cv= ContentValues()
-            cv.put("ITEMNAME", editText2.text.toString())
-            db.insert("ITEM", null, cv)
-            editText2.setText("")
-        }*/
+        dbhelper = Dbhelper(this)
+        //viewItem()
     }
+         /*fun viewItem()
+        {
+            val itemlist : ArrayList<Itemdb> = dbhelper.getItem(this)
+            val adapter= ItemAdapter(this, itemlist)
+            val rv:RecyclerView= findViewById(R.id.recyclerView)
+            rv.layoutManager=LinearLayoutManager(this, RecyclerView.VERTICAL , false) as RecyclerView.LayoutManager
+            rv.adapter= adapter
+        }*/
 }
+
