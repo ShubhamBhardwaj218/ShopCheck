@@ -10,12 +10,12 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.listdisplay.view.*
 
-class ItemAdapter(nctx:Context, val items:ArrayList<Itemdb> ): RecyclerView.Adapter<ItemAdapter.ViewHolder>(){
+class ItemAdapter(nctx:Context, val items:ArrayList<Itemdbclass> ): RecyclerView.Adapter<ItemAdapter.ViewHolder>(){
 
     val nctx1=nctx
     class ViewHolder(itemView :View):RecyclerView.ViewHolder(itemView)
     {
-        val itemselect= itemView.itemselect
+        val txtItemName= itemView.txtItemName
     }
     override fun onCreateViewHolder(p0: ViewGroup, viewType: Int): ItemAdapter.ViewHolder {
     val v=LayoutInflater.from(p0.context).inflate(R.layout.activity_main2,p0, false)
@@ -27,8 +27,8 @@ class ItemAdapter(nctx:Context, val items:ArrayList<Itemdb> ): RecyclerView.Adap
     }
 
     override fun onBindViewHolder(p0: ItemAdapter.ViewHolder, p1: Int) {
-        val item: Itemdb= items[p1]
-        p0.itemselect.text=item.itemselect
+        val item: Itemdbclass= items[p1]
+        p0.txtItemName.text=item.itemsName
     }
 
 }
