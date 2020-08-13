@@ -2,33 +2,35 @@ package com.shubham.shopcheck
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.ListView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.activity_main2.*
 import kotlinx.android.synthetic.main.listdisplay.*
 
 class Main2Activity : AppCompatActivity() {
-    companion object {
-        lateinit var dbhelper: Dbhelper
-    }
 
+    private lateinit var lv:ListView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2)
-        MainActivity.dbhelper = Dbhelper(this)
 
-        viewItem()
+
+       // MainActivity.dbhelper = Dbhelper(this)
+        var reciveList= ArrayList<String>()
+        reciveList= intent.getSerializableExtra("listOfSelectedItems") as ArrayList<String>
+        val itemreceve=findViewById<ListView>(R.id.lv)
+
+        val lvAdapter: ArrayAdapter<String> = ArrayAdapter(this, android.R.layout.simple_list_item_1, reciveList )
+
+        itemreceve.adapter=lvAdapter
 
     }
 
 
-    fun viewItem() {
-        val itemlist: ArrayList<Itemdbclass> = Main2Activity.dbhelper.getItem(this)
-        val adapter = ItemAdapter(this, itemlist)
-        val rv: RecyclerView = findViewById(R.id.rv)
-        rv.layoutManager =
-            LinearLayoutManager(this, RecyclerView.VERTICAL, false) as RecyclerView.LayoutManager
-        rv.adapter = adapter
-    }
+
 
 }
 

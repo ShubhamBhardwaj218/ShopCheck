@@ -7,8 +7,8 @@
     android:layout_height="match_parent"
     tools:context=".Main2Activity">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv"
+    <ListView
+        android:id="@+id/lv"
         android:layout_width="413dp"
         android:layout_height="565dp"
         app:layout_constraintBottom_toBottomOf="parent"
