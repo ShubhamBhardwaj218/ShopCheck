@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.ListView
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_main2.*
@@ -27,6 +28,9 @@ class Main2Activity : AppCompatActivity() {
 
         itemreceve.adapter=lvAdapter
 
+        btnfinal.setOnClickListener {
+            Toast.makeText(this, "Item has been Finalize!", Toast.LENGTH_SHORT).show()
+        }
     }
 
 
